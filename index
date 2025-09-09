@@ -1,1 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vito Designers - Custom Wear & Home Decor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #2a2a2a; /* Vintage Charcoal Black */
+        }
+        .font-playfair {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        /* Vintage Glitter Effect */
+        .vintage-bg {
+            background-color: #2a2a2a;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .vintage-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(2px 2px at 20% 30%, rgba(255,255,255,0.15), transparent),
+                radial-gradient(2px 2px at 60% 70%, rgba(255,255,255,0.1), transparent),
+                radial-gradient(1px 1px at 90% 10%, rgba(255,255,255,0.12), transparent),
+                radial-gradient(1px 1px at 15% 80%, rgba(255,255,255,0.1), transparent),
+                radial-gradient(2px 2px at 40% 40%, rgba(255,255,255,0.08), transparent),
+                radial-gradient(1px 1px at 75% 55%, rgba(255,255,255,0.1), transparent);
+            background-size: 200% 200%;
+            animation: glitterShift 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes glitterShift {
+            0%, 100% { transform: translateX(0) translateY(0); }
+            25% { transform: translateX(-5px) translateY(5px); }
+            50% { transform: translateX(5px) translateY(-5px); }
+            75% { transform: translateX(-3px) translateY(-3px); }
+        }
+        
+        /* --- Floating Logo & Menu --- */
+        #floating-logo {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 100;
+            transition: filter 0.5s ease-in-out;
+        }
+        #floating-logo.invert-color {
+            filter: invert(1) brightness(2);
+        }
+        #menu-button {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            z-index: 100;
+            transition: color 0.5s ease-in-out;
+            color: #969696; /* Vintage gold accent */
+        }
+        #menu-button.invert-color {
+            color: white;
+        }
+        
+        #dropdown-menu {
+            background-color: #2a2a2a;
+            border: 1px solid #969696;
+            box-shadow: 0 10px 30px rgba(255, 255, 255, 0.5);
+        }
+        
+        #dropdown-menu a {
+            color: #e5e5e5;
+            transition: all 0.3s ease;
+        }
+        
+        #dropdown-menu a:hover {
+            background-color: rgba(105, 105, 105, 0.1);
+            color: #969696;
+        }
+        
+        /* --- Showcase Section Styles --- */
+        .showcase-section {
+            position: relative;
+            height: 100vh;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .showcase-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .showcase-content {
+            position: relative;
+            z-index: 10;
+            color: white;
+            width: 100%;
+            padding: 0 2rem;
+        }
 
+        /* Enhanced Intro Section */
+        .intro-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #2a2a2a;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .intro-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            z-index: 10;
+            position: relative;
+        }
+        
+        .intro-image-circle {
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background-size: cover;
+            background-position: center;
+            margin-bottom: 3rem;
+            box-shadow: 
+                0 0 50px rgba(255, 255, 255, 0.3),
+                0 10px 30px rgba(0,0,0,0.5);
+            border: 3px solid #969696;
+            animation: floatAnimation 6s ease-in-out infinite;
+        }
+        
+        @keyframes floatAnimation {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .intro-section h1 {
+            color: #969696;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .intro-section p {
+            color: #e5e5e5;
+        }
+        
+        /* Category Title Section */
+        .category-title-section {
+            padding: 8rem 1.5rem;
+            background-color: #2a2a2a;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .category-title-section h2 {
+            color: #969696;
+        }
+        
+        .category-title-section p {
+            color: #c0c0c0;
+        }
+        
+        .conclusion-section {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        /* Enhanced National Dress Section with Controlled Icons */
+        #national-dress-section {
+            background-color: #1b3544;
+            background-image: none;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .floating-icon {
+            position: absolute;
+            opacity: 0.3;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+            animation: gentleFloat 15s ease-in-out infinite;
+        }
+        
+        /* Predefined positions for icons - creating a balanced layout */
+        .floating-icon:nth-child(1) { 
+            width: 70px; 
+            top: 10%; 
+            left: 5%; 
+            animation-delay: 0s;
+        }
+        .floating-icon:nth-child(2) { 
+            width: 85px; 
+            top: 15%; 
+            left: 85%; 
+            animation-delay: 2s;
+        }
+        .floating-icon:nth-child(3) { 
+            width: 60px; 
+            top: 70%; 
+            left: 10%; 
+            animation-delay: 4s;
+        }
+        .floating-icon:nth-child(4) { 
+            width: 75px; 
+            top: 65%; 
+            left: 80%; 
+            animation-delay: 1s;
+        }
+        .floating-icon:nth-child(5) { 
+            width: 65px; 
+            top: 35%; 
+            left: 15%; 
+            animation-delay: 3s;
+        }
+        .floating-icon:nth-child(6) { 
+            width: 80px; 
+            top: 40%; 
+            left: 75%; 
+            animation-delay: 5s;
+        }
+        .floating-icon:nth-child(7) { 
+            width: 70px; 
+            top: 5%; 
+            left: 45%; 
+            animation-delay: 1.5s;
+        }
+        .floating-icon:nth-child(8) { 
+            width: 75px; 
+            top: 80%; 
+            left: 50%; 
+            animation-delay: 3.5s;
+        }
+        .floating-icon:nth-child(9) { 
+            width: 65px; 
+            top: 50%; 
+            left: 5%; 
+            animation-delay: 2.5s;
+        }
+        .floating-icon:nth-child(10) { 
+            width: 70px; 
+            top: 55%; 
+            left: 90%; 
+            animation-delay: 4.5s;
+        }
+        
+        @keyframes gentleFloat {
+            0%, 100% { 
+                transform: translateY(0) translateX(0) rotate(0deg); 
+            }
+            25% { 
+                transform: translateY(-15px) translateX(10px) rotate(5deg); 
+            }
+            50% { 
+                transform: translateY(10px) translateX(-10px) rotate(-5deg); 
+            }
+            75% { 
+                transform: translateY(-10px) translateX(-5px) rotate(3deg); 
+            }
+        }
+        
+        /* Product View Button Styling */
+        .view-products-btn {
+            display: inline-block;
+            margin-top: 1.5rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            color: #2a2a2a;
+            font-weight: bold;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .view-products-btn:hover {
+            background-color: #969696;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 139, 139, 0.3);
+            border-color: white;
+        }
+        
+        /* About Section Vintage Theme */
+        #about {
+            background-color: #2a2a2a;
+            color: #e5e5e5;
+        }
+        
+        #about h2 {
+            color: #969696;
+        }
+        
+        #about p {
+            color: #c0c0c0;
+        }
+        
+        /* Footer Vintage Theme */
+        #contact {
+            background-color: #1a1a1a;
+            border-top: 1px solid #969696;
+        }
+        
+        #contact h3 {
+            color: #969696;
+        }
+        
+        /* Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="text-gray-100">
+
+    <!-- Floating Logo & Menu -->
+    <a href="index.html" id="floating-logo" class="cursor-pointer">
+        <img src="images/VitchSite1.png" alt="Vito Designers Logo" class="h-10">
+    </a>
+    <button id="menu-button" class="z-50 p-2">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+    </button>
+    <div id="dropdown-menu" class="fixed top-16 right-6 md:hidden shadow-lg rounded-lg hidden flex-col z-50">
+        <a href="#vito-wear" class="nav-link block py-3 px-6 text-sm">Vito Wear</a>
+        <a href="#vito-home" class="nav-link block py-3 px-6 text-sm">Vito Home</a>
+        <a href="#about" class="nav-link block py-3 px-6 text-sm">About</a>
+        <a href="#contact" class="nav-link block py-3 px-6 text-sm">Contact</a>
+    </div>
+
+    <main id="top">
+        <!-- Introduction Section with Vintage Theme -->
+        <section class="intro-section vintage-bg" data-theme="dark">
+            <div class="intro-content reveal">
+                <div class="intro-image-circle" style="background-image: url('images/VitchSiteMain.png');"></div>
+                <h1 class="text-5xl md:text-7xl font-playfair mb-6">_________</h1>
+                <p class="text-lg max-w-2xl mx-auto px-6">Have it your way</p>
+            </div>
+        </section>
+
+        <!-- Vito Wear Title Section -->
+        <section id="vito-wear" class="category-title-section vintage-bg" data-theme="dark">
+            <div class="reveal">
+                <h2 class="text-4xl md:text-5xl font-playfair font-bold">Vito Wear</h2>
+                <p class="mt-4 max-w-xl mx-auto">From cultural elegance to modern comfort, our garments are designed to make you look and feel your best.</p>
+            </div>
+        </section>
+
+        <!-- Product Sections: Vito Wear -->
+        
+        <!-- African Attire Section -->
+        <section class="showcase-section" data-theme="dark" style="background-image: url('images/VitoWear.jpg');">
+            <div class="showcase-overlay"></div>
+            <div class="showcase-content">
+                <div class="reveal">
+                    <h3 class="text-4xl md:text-6xl font-playfair">African Attire</h3>
+                    <!-- REPLACE href WITH YOUR AFRICAN ATTIRE PAGE LINK -->
+                    <a href="african_attire.html" class="view-products-btn">View Collection</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- National Dress Section with Controlled Floating Icons -->
+        <section id="national-dress-section" class="showcase-section" data-theme="dark">
+            <!-- Icons will be added here by JavaScript in a controlled manner -->
+            <div class="showcase-content">
+                <div class="reveal">
+                    <h3 class="text-4xl md:text-6xl font-playfair">The National Dress</h3>
+                    <!-- REPLACE href WITH YOUR NATIONAL DRESS PAGE LINK -->
+                    <a href="national-dress.html" class="view-products-btn">View Collection</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Casual Wear Section -->
+        <section class="showcase-section" data-theme="dark" style="background-image: url('https://placehold.co/1920x1080/a0aec0/ffffff?text=Casual+Wear');">
+            <div class="showcase-overlay"></div>
+            <div class="showcase-content">
+                <div class="reveal">
+                    <h3 class="text-4xl md:text-6xl font-playfair">Casual</h3>
+                    <!-- REPLACE href WITH YOUR CASUAL WEAR PAGE LINK -->
+                    <a href="casual-wear.html" class="view-products-btn">View Collection</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Sport Wear Section -->
+        <section class="showcase-section" data-theme="dark" style="background-image: url('https://placehold.co/1920x1080/a0aec0/ffffff?text=Sport+Wear');">
+            <div class="showcase-overlay"></div>
+            <div class="showcase-content">
+                <div class="reveal">
+                    <h3 class="text-4xl md:text-6xl font-playfair">Sport</h3>
+                    <!-- REPLACE href WITH YOUR SPORT WEAR PAGE LINK -->
+                    <a href="sport-wear.html" class="view-products-btn">View Collection</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Uniforms Section -->
+        <section class="showcase-section" data-theme="dark" style="background-image: url('https://placehold.co/1920x1080/a0aec0/ffffff?text=Uniforms');">
+            <div class="showcase-overlay"></div>
+            <div class="showcase-content">
+                <div class="reveal">
+                    <h3 class="text-4xl md:text-6xl font-playfair">Uniforms</h3>
+                    <!-- REPLACE href WITH YOUR UNIFORMS PAGE LINK -->
+                    <a href="uniforms.html" class="view-products-btn">View Collection</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Vito Wear Conclusion Section -->
+        <section class="conclusion-section vintage-bg" data-theme="dark">
+            <div class="reveal px-6">
+                <h3 class="text-3xl md:text-4xl font-playfair" style="color: #969696;">Tailored for Life</h3>
+                <p class="mt-4 max-w-2xl mx-auto text-gray-300">Each piece is a blend of traditional craftsmanship and contemporary style, made just for you.</p>
+            </div>
+        </section>
+
+        <!-- Vito Home Title Section -->
+        <section id="vito-home" class="category-title-section vintage-bg" data-theme="dark">
+            <div class="reveal">
+                <h2 class="text-4xl md:text-5xl font-playfair font-bold">Vito Home</h2>
+                <p class="mt-4 max-w-xl mx-auto">Transform your living spaces with our bespoke decor solutions, designed to match your unique style.</p>
+            </div>
+        </section>
+
+        <!-- Product Sections: Vito Home -->
+        
+        <!-- Curtains Section -->
+        <section class="showcase-section" data-theme="dark" style="background-image: url('images/VitoHomes.jpg');">
+            <div class="showcase-overlay"></div>
+            <div class="showcase-content">
+                <div class="reveal">
+                    <h3 class="text-4xl md:text-6xl font-playfair">Curtains</h3>
+                    <!-- REPLACE href WITH YOUR CURTAINS PAGE LINK -->
+                    <a href="curtains.html" class="view-products-btn">View Collection</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Couch Covers Section -->
+        <section class="showcase-section" data-theme="dark" style="background-image: url('https://placehold.co/1920x1080/e2e8f0/4a5568?text=Couch+Covers');">
+            <div class="showcase-overlay"></div>
+            <div class="showcase-content">
+                <div class="reveal">
+                    <h3 class="text-4xl md:text-6xl font-playfair">Couch Covers</h3>
+                    <!-- REPLACE href WITH YOUR COUCH COVERS PAGE LINK -->
+                    <a href="couch-covers.html" class="view-products-btn">View Collection</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Bed Spreads Section -->
+        <section class="showcase-section" data-theme="dark" style="background-image: url('https://placehold.co/1920x1080/e2e8f0/4a5568?text=Bed+Spreads');">
+            <div class="showcase-overlay"></div>
+            <div class="showcase-content">
+                <div class="reveal">
+                    <h3 class="text-4xl md:text-6xl font-playfair">Bed Spreads</h3>
+                    <!-- REPLACE href WITH YOUR BED SPREADS PAGE LINK -->
+                    <a href="bed-spreads.html" class="view-products-btn">View Collection</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Vito Home Conclusion Section -->
+        <section class="conclusion-section vintage-bg" data-theme="dark">
+            <div class="reveal px-6">
+                <h3 class="text-3xl md:text-4xl font-playfair" style="color: #969696;">Designed for Comfort</h3>
+                <p class="mt-4 max-w-2xl mx-auto text-white-200">From elegant drapes to protective covers, we bring quality craftsmanship into every corner of your home.</p>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="vintage-bg py-20" data-theme="dark">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/2 rounded-lg shadow-xl overflow-hidden reveal" style="border: 2px solid #969696;">
+                        <video class="w-full h-full object-cover" autoplay loop muted playsinline>
+                            <source src="video/VitchLoop.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="md:w-1/2 reveal">
+                        <h2 class="text-3xl md:text-4xl font-bold font-playfair mb-4">Our Story</h2>
+                        <p class="mb-4">Founded in 2012 with a passion for craftsmanship, Vitch is a small local shop in Kwekwe that focuses on custom tailoring and home decor. The name came from the word 'Vich' which in Russian means "son of".  We are all descendants</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Contact & Footer Section -->
+    <footer id="contact" class="text-white pt-20 pb-10" data-theme="dark">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12 text-center md:text-left">
+                <div class="reveal">
+                    <h3 class="text-xl font-bold mb-4">Contact Details</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <p>221 Garden Compound Munyati, Kwekwe<p>
+                        <p>+263 774367356</p>
+                        <p>orders@vitodesigners.co.zw</p>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <h3 class="text-xl font-bold mb-4">Business Hours</h3>
+                    <div class="text-gray-300">
+                        <p>Monday - Friday: 8:00 AM - 5:00 PM</p>
+                        <p>Saturday: 9:00 AM - 1:00 PM</p>
+                    </div>
+                </div>
+                <div class="reveal">
+                    <h3 class="text-xl font-bold mb-4">Quick Links</h3>
+                    <div class="flex flex-col space-y-2 text-gray-300">
+                        <a href="#about" class="nav-link hover:text-white">About Us</a>
+                        <a href="#contact" class="nav-link hover:text-white">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center text-gray-500 mt-16 border-t border-gray-700 pt-6">&copy; 2025 Vito Designers. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const menuButton = document.getElementById('menu-button');
+        const dropdownMenu = document.getElementById('dropdown-menu');
+
+        // --- CONTROLLED FLOATING ICONS FOR NATIONAL DRESS ---
+        const nationalDressSection = document.getElementById('national-dress-section');
+        const iconSources = [
+            'images/thebird.png',  // Zimbabwe Bird icon
+            'images/thebird2.png',  // Second icon variant
+            'images/thebird.png',   // More instances for balance
+            'images/thebird2.png',
+            'images/thebird.png'
+        ];
+
+        // Create icons with predefined positions
+        iconSources.forEach((src, index) => {
+            // Create two icons per source for a total of 10 icons
+            for (let j = 0; j < 2; j++) {
+                const icon = document.createElement('img');
+                icon.src = src;
+                icon.classList.add('floating-icon');
+                nationalDressSection.appendChild(icon);
+            }
+        });
+
+        // --- LOGO COLOR CHANGE ---
+        const floatingLogo = document.getElementById('floating-logo');
+        const sections = document.querySelectorAll('[data-theme]');
+        const logoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const theme = entry.target.getAttribute('data-theme');
+                    if (theme === 'dark') {
+                        floatingLogo.classList.add('invert-color');
+                        menuButton.classList.add('invert-color');
+                    } else {
+                        floatingLogo.classList.remove('invert-color');
+                        menuButton.classList.remove('invert-color');
+                    }
+                }
+            });
+        }, { threshold: 0.4 });
+        sections.forEach(section => logoObserver.observe(section));
+
+        // --- MENU TOGGLE ---
+        menuButton.addEventListener('click', () => {
+            dropdownMenu.classList.toggle('hidden');
+        });
+        
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                dropdownMenu.classList.add('hidden');
+            });
+        });
+
+        // --- REVEAL ANIMATION ---
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.25
+        });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    });
+    </script>
+</body>
+</html>
